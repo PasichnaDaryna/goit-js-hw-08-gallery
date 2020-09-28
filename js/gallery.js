@@ -1,10 +1,12 @@
 import images from "./gallery-items.js";
 
 const galleryContainer = document.querySelector(".js-gallery");
-console.log(createImageCollection(images));
+// console.log(createImageCollection(images));
 
 const cardsCollection = createImageCollection(images);
 galleryContainer.insertAdjacentHTML("beforeend", cardsCollection);
+
+galleryContainer.addEventListener("click", onGalleryClick);
 
 function createImageCollection(images) {
   return images
@@ -24,4 +26,7 @@ function createImageCollection(images) {
 </li>`;
     })
     .join("");
+}
+function onGalleryClick(evt) {
+  console.log(evt.target);
 }
