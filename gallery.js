@@ -6,7 +6,7 @@ const galleryContainer = document.querySelector(".js-gallery");
 const cardsCollection = createImageCollection(images);
 galleryContainer.insertAdjacentHTML("beforeend", cardsCollection);
 
-galleryContainer.addEventListener("click", onGalleryClick);
+// galleryContainer.addEventListener("click", onGalleryClick);
 
 function createImageCollection(images) {
   return images
@@ -27,6 +27,19 @@ function createImageCollection(images) {
     })
     .join("");
 }
-function onGalleryClick(evt) {
-  console.log(evt.target);
-}
+
+const openModalButton = document.querySelector(".gallery__item");
+openModalButton.addEventListener("click", onOpenModal);
+
+// function onOpenModal() {
+//   document.body.classList.add(".gallery__item");
+//   evt.preventDefault();
+// }
+
+// function onGalleryClick(evt) {
+//   const isGalleryItem = evt.target.classList.contains("gallery__item");
+//   if (!isGalleryItem) {
+//     return;
+//   }
+
+// }
