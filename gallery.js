@@ -43,10 +43,12 @@ refs.closeModal.addEventListener("click", onCloseModal);
 
 function onOpenModal(evt) {
   const isGalleryItem = evt.target.classList.contains("gallery__item");
+  const lightBoxDiv = document.querySelector(".lightbox");
   if (!isGalleryItem) {
     return;
   }
   evt.preventDefault();
-  isGalleryItem.classList.add("is-open");
+  lightBoxDiv.classList.add(".is-open");
 }
+
 function onCloseModal() {}
