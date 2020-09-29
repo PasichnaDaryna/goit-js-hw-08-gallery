@@ -27,19 +27,26 @@ function createImageCollection(images) {
     })
     .join("");
 }
+//  <!--
+//       Модальное окно для полноразмерного изображения
+//       Для того чтобы открыть, необходимо добавить на div.lightbox CSS-класс is-open
+//     -->
 
-const openModalButton = document.querySelector(".gallery__item");
-openModalButton.addEventListener("click", onOpenModal);
+const refs = {
+  openModalBtn: document.querySelector(".gallery__item"),
+  closeModal: document.querySelector('[data-action="close-lightbox"]'),
+  backdrop: document.querySelector(".lightbox__overlay"),
+};
 
-// function onOpenModal() {
-//   document.body.classList.add(".gallery__item");
-//   evt.preventDefault();
-// }
+refs.openModalBtn.addEventListener("click", onOpenModal);
+refs.closeModal.addEventListener("click", onCloseModal);
 
-// function onGalleryClick(evt) {
-//   const isGalleryItem = evt.target.classList.contains("gallery__item");
-//   if (!isGalleryItem) {
-//     return;
-//   }
-
-// }
+function onOpenModal(evt) {
+  const isGalleryItem = evt.target.classList.contains("gallery__item");
+  if (!isGalleryItem) {
+    return;
+  }
+  evt.preventDefault();
+  isGalleryItem.classList.add("is-open");
+}
+function onCloseModal() {}
