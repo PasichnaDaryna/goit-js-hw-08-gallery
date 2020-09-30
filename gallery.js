@@ -1,12 +1,19 @@
 import images from "./gallery-items.js";
 
 const galleryContainer = document.querySelector(".js-gallery");
+const closeModal = document.querySelector(".lightbox__button");
+const modalEl = document.querySelector(".js-lightbox");
+const overlayEl = document.querySelector(".lightbox__overlay");
+const modalImgEL = document.querySelector(".lightbox__image");
+
 // console.log(createImageCollection(images));
 
 const cardsCollection = createImageCollection(images);
 galleryContainer.insertAdjacentHTML("beforeend", cardsCollection);
 
-// galleryContainer.addEventListener("click", onGalleryClick);
+galleryContainer.addEventListener("click", onOpenModal);
+closeModal.addEventListener("click", onCloseModal);
+overlayEl.addEventListener("click", onCloseModalOnOverlay);
 
 function createImageCollection(images) {
   return images
@@ -32,23 +39,33 @@ function createImageCollection(images) {
 //       Для того чтобы открыть, необходимо добавить на div.lightbox CSS-класс is-open
 //     -->
 
-const refs = {
-  openModalBtn: document.querySelector(".gallery__item"),
-  closeModal: document.querySelector('[data-action="close-lightbox"]'),
-  backdrop: document.querySelector(".lightbox__overlay"),
-};
+function onOpenModal(event) {
+  event.preventDefault();
 
-refs.openModalBtn.addEventListener("click", onOpenModal);
-refs.closeModal.addEventListener("click", onCloseModal);
-
-function onOpenModal(evt) {
-  const isGalleryItem = evt.target.classList.contains("gallery__item");
-  const lightBoxDiv = document.querySelector(".lightbox");
-  if (!isGalleryItem) {
+  if (event.target.nodeName !== "IMG") {
     return;
   }
-  evt.preventDefault();
-  lightBoxDiv.classList.add(".is-open");
+  document.addEventListener("keydown", onCloseModalByEsc);
+  modalEl.classList.add(".is-open");
+
+  modalImgEL.src = event.target.dataset.source;
+  modalImgEL.alt = event.target.alt;
 }
 
-function onCloseModal() {}
+function onCloseModal() {
+  document.removeEventListener("keydown", onCloseModalByEsc);
+  modalEl.classList.remove(".is-open");
+  modalImgEL.src = "";
+}
+
+function onCloseModalOnOverlay(event) {
+  if (event.currentTarget === event.target) {
+    onCloseModal();
+  }
+}
+
+function onCloseModalByEsc(event) {
+  if (event.code === "Escape") {
+    onCloseModal();
+  }
+}
