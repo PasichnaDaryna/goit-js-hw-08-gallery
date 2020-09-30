@@ -2,7 +2,7 @@ import images from "./gallery-items.js";
 
 const galleryContainer = document.querySelector(".js-gallery");
 const closeModal = document.querySelector(".lightbox__button");
-const modalEl = document.querySelector(".js-lightbox");
+const modalEl = document.querySelector(".lightbox");
 const overlayEl = document.querySelector(".lightbox__overlay");
 const modalImgEL = document.querySelector(".lightbox__image");
 
@@ -46,7 +46,7 @@ function onOpenModal(event) {
     return;
   }
   document.addEventListener("keydown", onCloseModalByEsc);
-  modalEl.classList.add(".is-open");
+  modalEl.classList.add("is-open");
 
   modalImgEL.src = event.target.dataset.source;
   modalImgEL.alt = event.target.alt;
@@ -54,7 +54,7 @@ function onOpenModal(event) {
 
 function onCloseModal() {
   document.removeEventListener("keydown", onCloseModalByEsc);
-  modalEl.classList.remove(".is-open");
+  modalEl.classList.remove("is-open");
   modalImgEL.src = "";
 }
 
